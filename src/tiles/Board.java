@@ -6,6 +6,9 @@ public class Board extends Group{
 
 	public Board() {
 		
+		this.setTranslateX(5);
+		this.setTranslateY(5);
+		
 		boolean alt = false;
 		
 		for (int rows = 0; rows < 8; rows++) {
@@ -23,6 +26,7 @@ public class Board extends Group{
 				this.getChildren().get(this.getChildren().size() - 1).setTranslateX(cols * Tile.SIZE);
 					
 			}
+			
 			if (alt) {
 				alt = false;
 			}
