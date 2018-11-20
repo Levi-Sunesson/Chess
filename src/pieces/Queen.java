@@ -1,23 +1,25 @@
 package pieces;
 
-import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class Queen extends Piece {
 
-	static Image White = new Image("file:chessPieces/tile002.png");
-	static Image Black = new Image("file:chessPieces/tile008.png");
-	
-	public Queen(String color) {
-		
-			super(White, Black, color);
-			
+	public Queen(Color c) {
+
+		super(c);
+
 	}
 
+	@Override
+	public void showMove(int row, int col) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void move() {
+		// TODO Auto-generated method stub
 		
 	}
 
-	
 }

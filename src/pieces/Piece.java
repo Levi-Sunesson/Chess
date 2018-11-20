@@ -3,34 +3,30 @@ package pieces;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import tiles.Tile;
 
-public abstract class Piece extends Group{
+public abstract class Piece extends Group implements Moveable{
 
-	public String color;
+	private Color color;
 	
-	public Piece(Image imageWhite, Image imageBlack, String color){
-		
-		this.color = color;
-		
-		ImageView iw;
-		
-		if (color.equals("White")) {
-
-	        iw = new ImageView(imageWhite);
-	        
-		}else {
-			
-			iw = new ImageView(imageBlack);
-			
+	public Piece(Color c) {
+		color = c;
+		String COLOR = "WHITE";
+		if (c == Color.BLACK) {
+			COLOR = "BLACK";
 		}
-		
-        iw.setFitWidth(100);
-        iw.setFitHeight(100);
-		
-		this.getChildren().add(iw);
-		
+
+		Image img = new Image("images/" + COLOR + "_" + this.getClass().getSimpleName().toUpperCase() + ".png");
+		ImageView iv = new ImageView(img);
+		iv.setFitWidth(Tile.SIZE);
+		iv.setFitHeight(Tile.SIZE);
+		this.getChildren().add(iv);
+
 	}
-	
-	public abstract void move();
+
+	public Color getColor() {
+		return color;
+	}
 	
 }
