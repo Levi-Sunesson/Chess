@@ -8,20 +8,20 @@ import pieces.*;
 public class Board extends Group{
 
 	public static ArrayList<ArrayList<Tile>> allTiles = new ArrayList<ArrayList<Tile>>();
-	
+
 	public Board() {
 
 		this.setTranslateX(5);
 		this.setTranslateY(5);
 
 		for (int rows = 0; rows < 8; rows++) {
-			
+
 			allTiles.add(new ArrayList<Tile>());
-			
+
 			for (int cols = 0; cols < 8; cols++) {
 
 				Color background = Color.LIGHTGRAY;
-				
+
 				if( (rows + cols) % 2 != 0) {
 					background = Color.DARKGRAY;
 				}
@@ -32,15 +32,7 @@ public class Board extends Group{
 				this.getChildren().add(t);
 
 				allTiles.get(rows).add(t);
-				
-				if(rows == 4 && cols == 4) {
-					
-					t.addPiece(new Rook(Color.BLACK));
-					
-				}
-				
-				/*
-				
+
 				if(rows == 1){
 					t.addPiece(new Pawn(Color.BLACK));
 				}
@@ -48,9 +40,9 @@ public class Board extends Group{
 					t.addPiece(new Pawn(Color.WHITE));
 				}
 				if (rows == 0) {
-					
+
 					Color pieceColor = Color.BLACK;
-					
+
 					if (cols == 0 || cols == 7) {
 						t.addPiece(new Rook(pieceColor));
 					}else if(cols == 1 || cols == 6) {
@@ -65,7 +57,7 @@ public class Board extends Group{
 				}else if (rows == 7) {
 
 					Color pieceColor = Color.WHITE;
-					
+
 					if (cols == 0 || cols == 7) {
 						t.addPiece(new Rook(pieceColor));
 					}else if(cols == 1 || cols == 6) {
@@ -78,9 +70,6 @@ public class Board extends Group{
 						t.addPiece(new King(pieceColor));
 					}
 				}
-				
-				*/
-				
 			}
 		}
 	}

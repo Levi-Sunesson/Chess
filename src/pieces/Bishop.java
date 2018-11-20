@@ -1,6 +1,8 @@
 package pieces;
 
 import javafx.scene.paint.Color;
+import tiles.Board;
+import tiles.Tile;
 
 public class Bishop extends Piece {
 
@@ -14,53 +16,93 @@ public class Bishop extends Piece {
 	public void showMove(int row, int col) {
 
 		int n;
+		int y;
+		
+		for (int i = 1; i <= 4; i++) {
 
-		for (int i = 1; i < 5; i++) {
+			if (i%2 == 0) {
 
-			n = 0;
+				//Up & down = columns
 
-			int x = (i % 2 == 0) ? 1 : -1;
-
-			while (true) {
-
-				if (i <= 2) {
-
-					n += 8 + x;
-
-				} else {
-
-					n -= 8 - x;
-
-				}
-				if (n>0
-						//At edge
-						) {
-						
-					break;
+				int x = (i % 4 == 0) ? 1 : -1;
 				
-				}
-
-				if (n>0
-						//Has Piece
-						) {
-
-					if (n>0
-						//Is enemy
-							) {
-
-						//kill it
-
+				y = x*-1;
+				n = x;
+				
+				while(true) {
+					
+					if (
+							!(row+n >= 0) ||
+							!(row+n < Board.allTiles.size()) ||
+							!(col+y >= 0) ||
+							!(col+y < Board.allTiles.size())) {
+						break;
 					}
 
-					break;
+					Tile tileToCheck = Board.allTiles.get(row+n).get(col+y);
 
-				}else {
+					if (!tileToCheck.hasPiece()) {
 
-					//tile.next(n).moveMark();
+						tileToCheck.moveMark();
 
+					}else if (tileToCheck.hasPiece()) {
+						
+						if (tileToCheck.getPieceColor() != this.getColor()) {
+						
+							tileToCheck.moveMark();
+							break;
+							
+						}
+						
+					}
+
+					n += x;
+					y += x*-1;
 
 				}
 
+			}
+
+			if(i%2 != 0) {
+
+				//Right & Left = row
+
+				n = 0;
+
+				int x = (i % 3 == 0) ? 1 : -1;
+
+				n = x;
+
+				while(true) {
+
+					if (
+							!(row+n >= 0) ||
+							!(row+n < Board.allTiles.size()) ||
+							!(col+n >= 0) ||
+							!(col+n < Board.allTiles.size())) {
+						break;
+					}
+
+					Tile tileToCheck = Board.allTiles.get(row+n).get(col+n);
+
+					if (!tileToCheck.hasPiece()) {
+
+						tileToCheck.moveMark();
+
+					}else if (tileToCheck.hasPiece()) {
+						
+						if (tileToCheck.getPieceColor() != this.getColor()) {
+						
+							tileToCheck.moveMark();
+							break;
+							
+						}
+						
+					}
+
+					n += x;
+
+				}
 
 			}
 
