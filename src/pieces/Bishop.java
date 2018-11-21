@@ -50,9 +50,10 @@ public class Bishop extends Piece {
 						if (tileToCheck.getPieceColor() != this.getColor()) {
 						
 							tileToCheck.moveMark();
-							break;
 							
 						}
+						
+						break;
 						
 					}
 
@@ -94,9 +95,10 @@ public class Bishop extends Piece {
 						if (tileToCheck.getPieceColor() != this.getColor()) {
 						
 							tileToCheck.moveMark();
-							break;
 							
 						}
+						
+						break;
 						
 					}
 

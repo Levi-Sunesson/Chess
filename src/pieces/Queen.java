@@ -49,10 +49,11 @@ public class Queen extends Piece {
 						if (tileToCheck.getPieceColor() != this.getColor()) {
 
 							tileToCheck.moveMark();
-							break;
 
 						}
 
+						break;
+						
 					}
 
 					n += x;
@@ -93,10 +94,11 @@ public class Queen extends Piece {
 						if (tileToCheck.getPieceColor() != this.getColor()) {
 
 							tileToCheck.moveMark();
-							break;
 
 						}
 
+						break;
+						
 					}
 
 					n += x;
@@ -136,10 +138,11 @@ public class Queen extends Piece {
 						if (tileToCheck.getPieceColor() != this.getColor()) {
 
 							tileToCheck.moveMark();
-							break;
 
 						}
 
+						break;
+						
 					}
 
 					n += x;
@@ -175,9 +178,10 @@ public class Queen extends Piece {
 						if (tileToCheck.getPieceColor() != this.getColor()) {
 
 							tileToCheck.moveMark();
-							break;
 
 						}
+						
+						break;
 
 					}
 

@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 //import pieces.Pawn;
+import pieces.King;
 import pieces.Piece;
 
 public class Tile extends Group {
@@ -32,6 +33,9 @@ public class Tile extends Group {
 			
 			if (hasMoveMark()) {
 				Piece p = active.piece;
+				
+				
+				
 				active.piece = null;
 				active.makeInactive();
 				this.addPiece(p);

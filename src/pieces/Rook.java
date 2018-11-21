@@ -47,9 +47,11 @@ public class Rook extends Piece {
 						if (tileToCheck.getPieceColor() != this.getColor()) {
 						
 							tileToCheck.moveMark();
-							break;
+							
 							
 						}
+						
+						break;
 						
 					}
 
@@ -86,9 +88,10 @@ public class Rook extends Piece {
 						if (tileToCheck.getPieceColor() != this.getColor()) {
 						
 							tileToCheck.moveMark();
-							break;
 							
 						}
+						
+						break;
 						
 					}
 
