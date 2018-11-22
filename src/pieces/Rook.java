@@ -24,8 +24,6 @@ public class Rook extends Piece {
 
 				//Up & down = columns
 
-				n = 0;
-
 				int x = (i % 4 == 0) ? 1 : -1;
 
 				n = x;

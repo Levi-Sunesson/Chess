@@ -5,19 +5,18 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-//import pieces.Pawn;
-import pieces.King;
 import pieces.Piece;
 
 public class Tile extends Group {
 
-	public static final double SIZE = 100;
+	public static final double SIZE = 125;
 	private Rectangle bg;
 	private Color originalColor;
 	private Piece piece;
 	public static Tile active;
-	//private int turnCounter = 1;
 	public static ArrayList<Tile> moveMarked = new ArrayList<Tile>();
+	private boolean locked = false;
+	private Color turn = Color.WHITE;
 
 	public Tile(Color c) {
 		originalColor = c;
@@ -30,34 +29,71 @@ public class Tile extends Group {
 				this.makeInactive();
 				return;
 			}
-			
+
+			turn = (Board.getTurn()%2 == 0) ? Color.WHITE : Color.BLACK;
+
 			if (hasMoveMark()) {
 				Piece p = active.piece;
-				
-				
-				
 				active.piece = null;
 				active.makeInactive();
 				this.addPiece(p);
 				this.piece.move();
+
+				Board.changeTurn();
+
 				return;
 			}
 
-			// EXEMPEL:
-			if (hasPiece()) {
-				makeActive();
+			if (hasPiece() && this.piece.getColor() == turn) {
 
-				
+				makeActive();
 
 			} else {
 				if (active != null) {
 
 					active.makeInactive();
 				}
+			}
+		});
+
+	}
+
+	public void lock() {
+
+		if (this.hasPiece()) {
+			locked = true;
+		}
+
+	}
+
+	public void unlock() {
+
+		locked = false;
+
+	}
+
+	public void changeLock() {
+
+		if (this.hasPiece()) {
+			if (locked) {
+				locked = false;
+			}else {
+
+				locked = true;
 
 			}
 
-		});
+		}else {
+
+			unlock();
+
+		}
+
+	}
+
+	public boolean getLocked() {
+
+		return locked;
 
 	}
 
@@ -111,8 +147,11 @@ public class Tile extends Group {
 		}
 
 		active = this;
-		
-		this.piece.showMove(row(),col());
+
+		if (!locked) {
+			this.piece.showMove(row(),col());
+
+		}
 
 		this.getBackground().setFill(Color.RED);
 
@@ -144,22 +183,13 @@ public class Tile extends Group {
 	public boolean hasPiece() {
 		return this.piece != null;
 	}
-	
+
 	public Color getPieceColor(){
 		return this.piece.getColor();
 	}
 
 	public Rectangle getBackground() {
 		return this.bg;
-	}
-
-	public Boolean turn(int i) {
-		boolean whiteTurn = true;
-		if (i % 2 == 0) {
-			return whiteTurn = false;
-		} else {
-			return whiteTurn;
-		}
 	}
 
 }

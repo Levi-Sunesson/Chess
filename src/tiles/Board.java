@@ -8,7 +8,11 @@ import pieces.*;
 public class Board extends Group{
 
 	public static ArrayList<ArrayList<Tile>> allTiles = new ArrayList<ArrayList<Tile>>();
-
+	private static int turn = 0;
+	
+	Tile whiteKing;
+	Tile blackKing;
+	
 	public Board() {
 
 		this.setTranslateX(5);
@@ -53,6 +57,7 @@ public class Board extends Group{
 						t.addPiece(new Queen(pieceColor));
 					}else if(cols == 4) {
 						t.addPiece(new King(pieceColor));
+						blackKing = t;
 					}
 				}else if (rows == 7) {
 
@@ -68,9 +73,23 @@ public class Board extends Group{
 						t.addPiece(new Queen(pieceColor));
 					}else if(cols == 4) {
 						t.addPiece(new King(pieceColor));
+						whiteKing = t;
 					}
 				}
 			}
 		}
 	}
+
+	public static void changeTurn() {
+		
+		turn++;
+		
+	}
+	
+	public static int getTurn() {
+		
+		return turn;
+		
+	}
+	
 }
