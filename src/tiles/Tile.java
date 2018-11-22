@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import pieces.King;
 import pieces.Piece;
 
 public class Tile extends Group {
@@ -39,6 +40,13 @@ public class Tile extends Group {
 				this.addPiece(p);
 				this.piece.move();
 
+				if (this.piece instanceof King) {
+					if (turn == Color.WHITE) 
+						Board.whiteKing = this;				
+					else 
+						Board.blackKing = this;
+
+				}
 				Board.changeTurn();
 
 				return;

@@ -6,6 +6,8 @@ import tiles.Tile;
 
 public class King extends Piece {
 
+	private boolean hasMoved = false;
+	
 	public King(Color c) {
 
 		super(c);
@@ -152,7 +154,11 @@ public class King extends Piece {
 	}
 
 	@Override
-	public void move() {}
+	public void move() {
+		
+		hasMoved = true;
+		
+	}
 
 
 }

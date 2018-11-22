@@ -10,8 +10,8 @@ public class Board extends Group{
 	public static ArrayList<ArrayList<Tile>> allTiles = new ArrayList<ArrayList<Tile>>();
 	private static int turn = 0;
 	
-	Tile whiteKing;
-	Tile blackKing;
+	public static Tile whiteKing;
+	public static Tile blackKing;
 	
 	public Board() {
 
@@ -80,6 +80,12 @@ public class Board extends Group{
 		}
 	}
 
+	public void Check() {
+		
+		
+		
+	}
+	
 	public static void changeTurn() {
 		
 		turn++;

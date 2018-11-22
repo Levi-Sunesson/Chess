@@ -7,6 +7,8 @@ public class Rook extends Piece {
 
 	//TORN
 
+	public boolean hasMoved = false;
+	
 	public Rook(Color c) {
 
 		super(c);
@@ -106,6 +108,8 @@ public class Rook extends Piece {
 	@Override
 	public void move() {
 
+		hasMoved = true;
+		
 	}
 
 }
