@@ -6,7 +6,10 @@ import tiles.Tile;
 
 public class King extends Piece {
 
-	private boolean hasMoved = false;
+	public boolean hasMoved = false;
+
+	public boolean checked = false;
+	public boolean hasBeenChecked = false;
 	
 	public King(Color c) {
 
@@ -16,6 +19,11 @@ public class King extends Piece {
 
 	@Override
 	public void showMove(int row, int col) {
+
+		Tile tileToCheck;
+		
+		Tile.rockadSetup(row);
+
 		int n;
 		int y;
 
@@ -37,7 +45,7 @@ public class King extends Piece {
 					continue;
 				}
 
-				Tile tileToCheck = Board.allTiles.get(row+n).get(col+y);
+				tileToCheck = Board.allTiles.get(row+n).get(col+y);
 
 				if (!tileToCheck.hasPiece()) {
 
@@ -71,7 +79,7 @@ public class King extends Piece {
 					continue;
 				}
 
-				Tile tileToCheck = Board.allTiles.get(row+n).get(col+n);
+				tileToCheck = Board.allTiles.get(row+n).get(col+n);
 
 				if (!tileToCheck.hasPiece()) {
 
@@ -103,7 +111,7 @@ public class King extends Piece {
 					continue;
 				}
 
-				Tile tileToCheck = Board.allTiles.get(row).get(col+n);
+				tileToCheck = Board.allTiles.get(row).get(col+n);
 
 				if (!tileToCheck.hasPiece()) {
 
@@ -132,7 +140,7 @@ public class King extends Piece {
 					continue;
 				}
 
-				Tile tileToCheck = Board.allTiles.get(row+n).get(col);
+				tileToCheck = Board.allTiles.get(row+n).get(col);
 
 				if (!tileToCheck.hasPiece()) {
 
@@ -155,9 +163,9 @@ public class King extends Piece {
 
 	@Override
 	public void move() {
-		
+
 		hasMoved = true;
-		
+
 	}
 
 

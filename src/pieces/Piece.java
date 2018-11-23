@@ -10,6 +10,8 @@ public abstract class Piece extends Group implements Moveable{
 
 	private Color color;
 	
+	private boolean hasMoved = false;
+	
 	public Piece(Color c) {
 		color = c;
 		String COLOR = "WHITE";
@@ -27,6 +29,12 @@ public abstract class Piece extends Group implements Moveable{
 
 	public Color getColor() {
 		return color;
+	}
+	
+	public boolean hasMoved() {
+		
+		return hasMoved;
+		
 	}
 	
 }

@@ -7,13 +7,14 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import pieces.King;
 import pieces.Piece;
+import pieces.Rook;
 
 public class Tile extends Group {
 
 	public static final double SIZE = 125;
 	private Rectangle bg;
 	private Color originalColor;
-	private Piece piece;
+	public Piece piece;
 	public static Tile active;
 	public static ArrayList<Tile> moveMarked = new ArrayList<Tile>();
 	private boolean locked = false;
@@ -51,6 +52,27 @@ public class Tile extends Group {
 
 				return;
 			}
+			
+			if (hasRockadMark()) {
+				
+				int activeRow = active.row();
+				
+				active.makeInactive();
+				rockadAction(activeRow);
+				
+				if (this.piece instanceof King) {
+					if (turn == Color.WHITE) 
+						Board.whiteKing = this;				
+					else 
+						Board.blackKing = this;
+
+				}
+				
+				Board.changeTurn();
+
+				return;
+				
+			}
 
 			if (hasPiece() && this.piece.getColor() == turn) {
 
@@ -66,6 +88,59 @@ public class Tile extends Group {
 
 	}
 
+	public static void rockadSetup(int row) {
+
+		ArrayList<Tile> rowArray = Board.allTiles.get(row);
+
+		if (
+				rowArray.get(4).piece instanceof King 	&&
+				!rowArray.get(4).piece.hasMoved()		&&
+
+				rowArray.get(7).piece instanceof Rook 	&&
+				!rowArray.get(7).piece.hasMoved()		&&
+
+				!rowArray.get(5).hasPiece() 			&&
+				!rowArray.get(6).hasPiece()				&&
+				rowArray.get(4).getPieceColor() == rowArray.get(7).getPieceColor()
+
+				) {
+
+			rowArray.get(7).rockadMark();
+
+		}
+
+	}
+
+	public static void rockadAction(int row) {
+		
+		ArrayList<Tile> rowArray = Board.allTiles.get(row);
+
+		if (
+				rowArray.get(4).piece instanceof King 	&&
+				!rowArray.get(4).piece.hasMoved()		&&
+
+				rowArray.get(7).piece instanceof Rook 	&&
+				!rowArray.get(7).piece.hasMoved()		&&
+
+				!rowArray.get(5).hasPiece() 			&&
+				!rowArray.get(6).hasPiece()
+
+				) {
+
+
+			rowArray.get(4).piece.move();
+			rowArray.get(7).piece.move();
+			
+			rowArray.get(6).addPiece(rowArray.get(4).piece);
+			rowArray.get(5).addPiece(rowArray.get(7).piece);
+			
+			rowArray.get(4).piece = null;
+			rowArray.get(7).piece = null;
+
+		}
+		
+	}
+	
 	public void lock() {
 
 		if (this.hasPiece()) {
@@ -144,9 +219,30 @@ public class Tile extends Group {
 	}
 
 	private void attackMark() {
-		Circle cir = new Circle(SIZE / 2, SIZE / 2, SIZE / 8, Color.RED);
+		Circle cir = new Circle(SIZE / 2, SIZE / 2, SIZE / 3, Color.TRANSPARENT);
+		cir.setStroke(Color.RED);
+		cir.setStrokeWidth(SIZE/20);
 		this.getChildren().add(cir);
 		moveMarked.add(this);
+	}
+	
+	private void rockadMark() {
+		
+		Rectangle rec = new Rectangle(SIZE/10, SIZE/10, SIZE*8/10, SIZE*8/10);
+		rec.setArcHeight(SIZE/10);
+		rec.setArcWidth(SIZE/10);
+		rec.setStroke(Color.GREEN);
+		rec.setStrokeWidth(SIZE/20);
+		rec.setFill(Color.TRANSPARENT);
+		
+		this.getChildren().add(rec);
+		moveMarked.add(this);
+	}
+	
+	private boolean hasRockadMark() {
+		
+		return this.getChildren().get(this.getChildren().size() - 1) instanceof Rectangle;
+
 	}
 
 	private void makeActive() {

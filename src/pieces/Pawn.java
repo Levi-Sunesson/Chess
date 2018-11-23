@@ -41,9 +41,12 @@ public class Pawn extends Piece {
 			
 			int x = (i%2 == 0) ? -1 : 1;
 			
-			tileToCheck = Board.allTiles.get(row+n).get(col+x);
+			if ((col+x >= 0) && col+x < Board.allTiles.size()) {
+				tileToCheck = Board.allTiles.get(row+n).get(col+x);
 
-			if (tileToCheck.hasPiece()) tileToCheck.moveMark();
+				if (tileToCheck.hasPiece()) tileToCheck.moveMark();
+				
+			}
 			
 		}
 		

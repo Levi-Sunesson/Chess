@@ -18,6 +18,10 @@ public class Rook extends Piece {
 	@Override
 	public void showMove(int row, int col) {
 
+		if (col == 7 && !hasMoved) {
+			Tile.rockadSetup(row);	
+		}
+		
 		int n;
 
 		for (int i = 1; i <= 4; i++) {
