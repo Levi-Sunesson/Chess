@@ -12,6 +12,8 @@ public class Board extends Group{
 	
 	public static Tile whiteKing;
 	public static Tile blackKing;
+	public static Piece checkPiece;
+	public static Tile checkTile;
 	
 	public Board() {
 

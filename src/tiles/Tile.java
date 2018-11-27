@@ -18,7 +18,7 @@ public class Tile extends Group {
 	public static Tile active;
 	public static ArrayList<Tile> moveMarked = new ArrayList<Tile>();
 	private boolean locked = false;
-	private Color turn = Color.WHITE;
+	private static Color turn = Color.WHITE;
 
 	public Tile(Color c) {
 		originalColor = c;
@@ -48,18 +48,21 @@ public class Tile extends Group {
 						Board.blackKing = this;
 
 				}
+
 				Board.changeTurn();
+
+				boardCheck(this);
 
 				return;
 			}
-			
+
 			if (hasRockadMark()) {
-				
+
 				int activeRow = active.row();
-				
+
 				active.makeInactive();
 				rockadAction(activeRow);
-				
+
 				if (this.piece instanceof King) {
 					if (turn == Color.WHITE) 
 						Board.whiteKing = this;				
@@ -67,11 +70,13 @@ public class Tile extends Group {
 						Board.blackKing = this;
 
 				}
-				
+
 				Board.changeTurn();
 
+				boardCheck(this);
+
 				return;
-				
+
 			}
 
 			if (hasPiece() && this.piece.getColor() == turn) {
@@ -84,7 +89,40 @@ public class Tile extends Group {
 					active.makeInactive();
 				}
 			}
+
 		});
+
+	}
+
+	public static void boardCheck(Tile attackerTile) {
+
+		Tile oldActive = active;
+
+		attackerTile.makeActive();
+		
+		if(Board.blackKing.hasMoveMark()) {
+			Board.blackKing.getBackground().setFill(Color.YELLOW);
+
+			Board.checkTile = attackerTile;
+		}else {
+
+			Board.blackKing.getBackground().setFill(Board.blackKing.originalColor);
+
+		}
+
+		if(Board.whiteKing.hasMoveMark()) {
+			Board.whiteKing.getBackground().setFill(Color.YELLOW);
+
+			Board.checkTile = attackerTile;
+		}else {
+
+			Board.whiteKing.getBackground().setFill(Board.whiteKing.originalColor);
+
+		}
+
+		active.makeInactive();
+
+		active = oldActive;
 
 	}
 
@@ -112,7 +150,7 @@ public class Tile extends Group {
 	}
 
 	public static void rockadAction(int row) {
-		
+
 		ArrayList<Tile> rowArray = Board.allTiles.get(row);
 
 		if (
@@ -130,17 +168,17 @@ public class Tile extends Group {
 
 			rowArray.get(4).piece.move();
 			rowArray.get(7).piece.move();
-			
+
 			rowArray.get(6).addPiece(rowArray.get(4).piece);
 			rowArray.get(5).addPiece(rowArray.get(7).piece);
-			
+
 			rowArray.get(4).piece = null;
 			rowArray.get(7).piece = null;
 
 		}
-		
+
 	}
-	
+
 	public void lock() {
 
 		if (this.hasPiece()) {
@@ -225,22 +263,22 @@ public class Tile extends Group {
 		this.getChildren().add(cir);
 		moveMarked.add(this);
 	}
-	
+
 	private void rockadMark() {
-		
+
 		Rectangle rec = new Rectangle(SIZE/10, SIZE/10, SIZE*8/10, SIZE*8/10);
-		rec.setArcHeight(SIZE/10);
-		rec.setArcWidth(SIZE/10);
+		rec.setArcHeight(rec.getHeight());
+		rec.setArcWidth(rec.getWidth());
 		rec.setStroke(Color.GREEN);
 		rec.setStrokeWidth(SIZE/20);
 		rec.setFill(Color.TRANSPARENT);
-		
+
 		this.getChildren().add(rec);
 		moveMarked.add(this);
 	}
-	
+
 	private boolean hasRockadMark() {
-		
+
 		return this.getChildren().get(this.getChildren().size() - 1) instanceof Rectangle;
 
 	}
