@@ -10,11 +10,12 @@ import tiles.Tile;
 
 public class Chess extends Application{
 
+	public static Board board = new Board();
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		Board board = new Board();
-
+		
 		Scene scene = new Scene(board, 8 * Tile.SIZE, 8 * Tile.SIZE, Color.WHITE);
 
 		primaryStage.getIcons().add(new Image("images/WHITE_KING.png"));
@@ -24,7 +25,7 @@ public class Chess extends Application{
 
 		primaryStage.sizeToScene();
 		primaryStage.show();
-		
+
 	}
 
 	public static void main(String[] args) {

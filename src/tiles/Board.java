@@ -3,6 +3,9 @@ package tiles;
 import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import pieces.*;
 
 public class Board extends Group{
@@ -45,7 +48,7 @@ public class Board extends Group{
 					if(rows == 1){
 						t.addPiece(new Pawn(pieceColor));
 					}
-					
+
 					if (rows == 0) {
 
 						if (cols == 0 || cols == 7) {
@@ -70,9 +73,9 @@ public class Board extends Group{
 					if(rows == 6){
 						t.addPiece(new Pawn(pieceColor));
 					}
-					
+
 					if (rows == 7) {
-						
+
 						if (cols == 0 || cols == 7) {
 							t.addPiece(new Rook(pieceColor));
 						}else if(cols == 1 || cols == 6) {
@@ -91,10 +94,26 @@ public class Board extends Group{
 		}
 	}
 
-	public void Check() {
+	public void end(String winner) {
+
+		Text endText = new Text(winner);
+		endText.setLayoutY(Tile.SIZE*3);
+		endText.setFont(new Font(100));
+		endText.setFill(Color.WHITE);
+		endText.setLayoutX(Tile.SIZE*4-(endText.getLayoutBounds().getWidth()/2));
 
 
+		Rectangle bkg = new Rectangle(
+				Tile.SIZE,
+				Tile.SIZE*2,
+				Tile.SIZE*6,
+				Tile.SIZE*1.5
+				);
 
+		bkg.setFill(Color.rgb(0, 0, 0,  0.7));
+
+		this.getChildren().add(bkg);
+		this.getChildren().add(endText);
 	}
 
 	public static void changeTurn() {

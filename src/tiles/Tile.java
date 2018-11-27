@@ -1,6 +1,8 @@
 package tiles;
 
 import java.util.ArrayList;
+
+import chess.Chess;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -36,61 +38,33 @@ public class Tile extends Group {
 
 			if (hasMoveMark()) {
 				Piece p = active.piece;
-				
+
 				if (this.piece instanceof King) {
-					System.out.println("THE KING IS DEAD");
-					
-					for (ArrayList<Tile> ar : Board.allTiles) {
-						
-						for (Tile tile : ar) {
-							
-							tile.lock();
-							
-						}
-						
+
+					for (ArrayList<Tile> arr : Board.allTiles) {
+						for (Tile tile : arr) {tile.lock();}
 					}
-					
+
+					Chess.board.end((Board.getTurn()%2 == 0) ? "white won" : "black won");
+
 				}
-				
+
 				active.piece = null;
 				active.makeInactive();
 				this.addPiece(p);
 				this.piece.move();
 
-				if (this.piece instanceof King) {
-					if (turn == Color.WHITE) 
-						Board.whiteKing = this;				
-					else 
-						Board.blackKing = this;
-
-				}
-
-				Board.changeTurn();
-
-				boardCheck(this);
-				
+				moveEnd();
 				return;
 			}
 
 			if (hasRockadMark() && active != null) {
-
 				int activeRow = active.row();
 
 				active.makeInactive();
 				rockadAction(activeRow);
 
-				if (this.piece instanceof King) {
-					if (turn == Color.WHITE) 
-						Board.whiteKing = this;				
-					else 
-						Board.blackKing = this;
-
-				}
-
-				Board.changeTurn();
-
-				boardCheck(this);
-
+				moveEnd();
 				return;
 
 			}
@@ -106,31 +80,41 @@ public class Tile extends Group {
 				}
 			}
 
+
 		});
 
 	}
 
-	public static void breaksCheck() {
-		
-		boardCheck(Board.checkTile);
-		
+	private void moveEnd() {
+
+		if (this.piece instanceof King) {
+			if (turn == Color.WHITE) 
+				Board.whiteKing = this;				
+			else 
+				Board.blackKing = this;
+		}
+
+		Board.changeTurn();
+		boardCheck(this);
+
 	}
-	
-	public static void boardCheck(Tile attackerTile) {
+
+
+	private static void boardCheck(Tile attackerTile) {
 
 		if (Board.checkTile != null && Board.checkTile != attackerTile) {
-			
+
 			boardCheck(Board.checkTile);
-			
+
 		}
-		
+
 		Tile oldActive = active;
 
 		attackerTile.makeActive();
-		
+
 		for (int i = 1; i <= 2; i++) {
 			Tile king = (i%2 == 0) ? Board.blackKing : Board.whiteKing;
-		
+
 			if(king.hasMoveMark()) {
 				king.getBackground().setFill(Color.YELLOW);
 
@@ -140,7 +124,7 @@ public class Tile extends Group {
 				king.getBackground().setFill(king.originalColor);
 
 			}
-			
+
 		}
 
 		active.makeInactive();
@@ -152,7 +136,7 @@ public class Tile extends Group {
 	public static void rockadSetup(int row) {
 
 		ArrayList<Tile> rowArray = Board.allTiles.get(row);
-		
+
 		if (
 				rowArray.get(4).piece instanceof King 	&&
 				!rowArray.get(4).piece.hasMoved()		&&
@@ -172,7 +156,7 @@ public class Tile extends Group {
 
 	}
 
-	public static void rockadAction(int row) {
+	private static void rockadAction(int row) {
 
 		ArrayList<Tile> rowArray = Board.allTiles.get(row);
 
@@ -302,7 +286,7 @@ public class Tile extends Group {
 
 	private boolean hasRockadMark() {
 
-		return this.getChildren().get(this.getChildren().size() - 1) instanceof Rectangle;
+		return this.getChildren().get(this.getChildren().size() - 1) instanceof Rectangle && this.getChildren().size() > 1;
 
 	}
 
@@ -348,7 +332,6 @@ public class Tile extends Group {
 	public boolean hasPiece() {
 		return this.piece != null;
 	}
-
 	public Color getPieceColor(){
 		return this.piece.getColor();
 	}
