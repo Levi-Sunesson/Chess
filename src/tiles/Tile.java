@@ -36,6 +36,22 @@ public class Tile extends Group {
 
 			if (hasMoveMark()) {
 				Piece p = active.piece;
+				
+				if (this.piece instanceof King) {
+					System.out.println("THE KING IS DEAD");
+					
+					for (ArrayList<Tile> ar : Board.allTiles) {
+						
+						for (Tile tile : ar) {
+							
+							tile.lock();
+							
+						}
+						
+					}
+					
+				}
+				
 				active.piece = null;
 				active.makeInactive();
 				this.addPiece(p);
@@ -52,7 +68,7 @@ public class Tile extends Group {
 				Board.changeTurn();
 
 				boardCheck(this);
-
+				
 				return;
 			}
 
