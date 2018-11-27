@@ -1,6 +1,7 @@
 package tiles;
 
 import java.util.ArrayList;
+
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -97,7 +98,7 @@ public class Board extends Group{
 	public void end(String winner) {
 
 		Text endText = new Text(winner);
-		endText.setLayoutY(Tile.SIZE*3);
+		endText.setLayoutY(Tile.SIZE*4.25);
 		endText.setFont(new Font(100));
 		endText.setFill(Color.WHITE);
 		endText.setLayoutX(Tile.SIZE*4-(endText.getLayoutBounds().getWidth()/2));
@@ -105,13 +106,12 @@ public class Board extends Group{
 
 		Rectangle bkg = new Rectangle(
 				Tile.SIZE,
-				Tile.SIZE*2,
+				Tile.SIZE*3.25,
 				Tile.SIZE*6,
 				Tile.SIZE*1.5
 				);
 
 		bkg.setFill(Color.rgb(0, 0, 0,  0.7));
-
 		this.getChildren().add(bkg);
 		this.getChildren().add(endText);
 	}

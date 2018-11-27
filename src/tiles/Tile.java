@@ -45,7 +45,7 @@ public class Tile extends Group {
 						for (Tile tile : arr) {tile.lock();}
 					}
 
-					Chess.board.end((Board.getTurn()%2 == 0) ? "white won" : "black won");
+					Chess.end((Board.getTurn()%2 == 0) ? "WHITE WON" : "BLACK WON");
 
 				}
 
