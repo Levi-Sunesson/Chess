@@ -47,17 +47,7 @@ public class King extends Piece {
 
 				tileToCheck = Board.allTiles.get(row+n).get(col+y);
 
-				if (!tileToCheck.hasPiece()) {
-
-					tileToCheck.moveMark();
-
-				}else if (tileToCheck.hasPiece()) {
-
-					if (tileToCheck.getPieceColor() != this.getColor()) {
-
-						tileToCheck.moveMark();
-
-					}
+				if (!controlTile(tileToCheck)) {
 
 					continue;
 
@@ -81,17 +71,7 @@ public class King extends Piece {
 
 				tileToCheck = Board.allTiles.get(row+n).get(col+n);
 
-				if (!tileToCheck.hasPiece()) {
-
-					tileToCheck.moveMark();
-
-				}else if (tileToCheck.hasPiece()) {
-
-					if (tileToCheck.getPieceColor() != this.getColor()) {
-
-						tileToCheck.moveMark();
-
-					}
+				if (!controlTile(tileToCheck)) {
 
 					continue;
 
@@ -113,17 +93,7 @@ public class King extends Piece {
 
 				tileToCheck = Board.allTiles.get(row).get(col+n);
 
-				if (!tileToCheck.hasPiece()) {
-
-					tileToCheck.moveMark();
-
-				}else if (tileToCheck.hasPiece()) {
-
-					if (tileToCheck.getPieceColor() != this.getColor()) {
-
-						tileToCheck.moveMark();
-
-					}
+				if (!controlTile(tileToCheck)) {
 
 					continue;
 
@@ -142,17 +112,7 @@ public class King extends Piece {
 
 				tileToCheck = Board.allTiles.get(row+n).get(col);
 
-				if (!tileToCheck.hasPiece()) {
-
-					tileToCheck.moveMark();
-
-				}else if (tileToCheck.hasPiece()) {
-
-					if (tileToCheck.getPieceColor() != this.getColor()) {
-
-						tileToCheck.moveMark();
-
-					}
+				if (!controlTile(tileToCheck)) {
 
 					continue;
 

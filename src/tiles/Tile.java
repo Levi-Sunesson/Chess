@@ -56,7 +56,7 @@ public class Tile extends Group {
 				return;
 			}
 
-			if (hasRockadMark()) {
+			if (hasRockadMark() && active != null) {
 
 				int activeRow = active.row();
 
@@ -94,30 +94,37 @@ public class Tile extends Group {
 
 	}
 
+	public static void breaksCheck() {
+		
+		boardCheck(Board.checkTile);
+		
+	}
+	
 	public static void boardCheck(Tile attackerTile) {
 
+		if (Board.checkTile != null && Board.checkTile != attackerTile) {
+			
+			boardCheck(Board.checkTile);
+			
+		}
+		
 		Tile oldActive = active;
 
 		attackerTile.makeActive();
 		
-		if(Board.blackKing.hasMoveMark()) {
-			Board.blackKing.getBackground().setFill(Color.YELLOW);
+		for (int i = 1; i <= 2; i++) {
+			Tile king = (i%2 == 0) ? Board.blackKing : Board.whiteKing;
+		
+			if(king.hasMoveMark()) {
+				king.getBackground().setFill(Color.YELLOW);
 
-			Board.checkTile = attackerTile;
-		}else {
+				Board.checkTile = attackerTile;
+			}else {
 
-			Board.blackKing.getBackground().setFill(Board.blackKing.originalColor);
+				king.getBackground().setFill(king.originalColor);
 
-		}
-
-		if(Board.whiteKing.hasMoveMark()) {
-			Board.whiteKing.getBackground().setFill(Color.YELLOW);
-
-			Board.checkTile = attackerTile;
-		}else {
-
-			Board.whiteKing.getBackground().setFill(Board.whiteKing.originalColor);
-
+			}
+			
 		}
 
 		active.makeInactive();
@@ -129,7 +136,7 @@ public class Tile extends Group {
 	public static void rockadSetup(int row) {
 
 		ArrayList<Tile> rowArray = Board.allTiles.get(row);
-
+		
 		if (
 				rowArray.get(4).piece instanceof King 	&&
 				!rowArray.get(4).piece.hasMoved()		&&
@@ -290,7 +297,7 @@ public class Tile extends Group {
 
 		active = this;
 
-		if (!locked) {
+		if (!locked && this.piece != null) {
 			this.piece.showMove(row(),col());
 
 		}
