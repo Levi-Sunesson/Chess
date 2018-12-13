@@ -22,7 +22,11 @@ public class King extends Piece {
 
 		Tile tileToCheck;
 		
-		Tile.rockadSetup(row);
+		if (!hasMoved) {
+
+			Tile.rockadSetup(row);
+			
+		}
 
 		int n;
 		int y;

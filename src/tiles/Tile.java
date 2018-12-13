@@ -188,9 +188,7 @@ public class Tile extends Group {
 
 	public void lock() {
 
-		if (this.hasPiece()) {
-			locked = true;
-		}
+		locked = (this.hasPiece()) ? true : locked;
 
 	}
 
@@ -251,15 +249,13 @@ public class Tile extends Group {
 
 	public void moveMark() {
 		if (this.hasPiece()) {
-			// OM OLIKA FÄRG
 			if (this.piece.getColor() != active.piece.getColor()) {
 				attackMark();
 			}
 			return;
 		}
 
-		Circle cir = new Circle(SIZE / 2, SIZE / 2, SIZE / 8);
-		this.getChildren().add(cir);
+		this.getChildren().add(new Circle(SIZE / 2, SIZE / 2, SIZE / 8));
 		moveMarked.add(this);
 	}
 
